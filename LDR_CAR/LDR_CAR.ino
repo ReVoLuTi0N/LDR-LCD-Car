@@ -9,7 +9,9 @@ int PR_LEFT;
 int PR_RIGHT;
 int  for_rev=0;
 int left_right=0;
-
+int a=0;
+int b=0;
+int c=0;
 void setup() {
    Serial.begin(9600);                     
   //Starting LDR's
@@ -35,48 +37,49 @@ void loop() {
   PR_RIGHT = analogRead(photocellPin4);
   for_rev = PR_UP-PR_DOWN;
   left_right = PR_LEFT-PR_RIGHT;
- 
-  if (abs(for_rev)<20){
-   analogWrite(8,0);
-  analogWrite(10, 0); 
-    analogWrite(9,0);
-  analogWrite(11, 0);
-
-}
-  else if (for_rev>0) {
-  Serial.println("Backward");
-  analogWrite(9,100);
-  analogWrite(11, 100); 
+Serial.println(PR_LEFT);
+ a=(PR_UP)-(PR_DOWN);
+ abs(a);
+ b=(PR_LEFT)-(PR_RIGHT);
+ abs(b);
+ //if (a<100){
+  //analogWrite(8,0);
+  //analogWrite(10, 0); 
+  //analogWrite(9,0);
+  //analogWrite(11, 0);
+ //}
+//else if (b<100) {
+  //analogWrite(8,0);
+  //analogWrite(10, 0); 
+  //analogWrite(9,0);
+  //analogWrite(11, 0);
+//}
+ if(PR_UP>PR_DOWN){
+//BACKWARDS
+   analogWrite (9,150);
+  analogWrite(11, 150); 
   analogWrite(8,0);
-  analogWrite(10, 0);  
-  }
-  else if (PR_UP<PR_DOWN) {
-    Serial.println("Forward");
-   analogWrite(9,00);
+  analogWrite(10, 0);
+}
+else if (PR_UP<PR_DOWN&&PR_RIGHT<PR_UP&&PR_LEFT>PR_RIGHT){
+  //RIGHT
+  analogWrite(8,150);
+  analogWrite(10, 00); 
+  analogWrite(9,00);
+  analogWrite(11, 00);
+}
+else if (PR_UP<PR_DOWN&&PR_LEFT<PR_UP&&PR_LEFT<PR_RIGHT){
+  //LEFT
+  analogWrite(8,00);
+  analogWrite(10, 150); 
+  analogWrite(9,00);
   analogWrite(11, 00); 
-  analogWrite(8,100);
-  analogWrite(10, 100);  
-  }
-else if (PR_UP<PR_DOWN && PR_LEFT>PR_RIGHT) {
-Serial.println("Right");
-  analogWrite(8,100);
-  analogWrite(10, 00); 
-  analogWrite(9,00);
-  analogWrite(11, 00);
 }
-else if (PR_UP<PR_DOWN && PR_LEFT<PR_RIGHT) {
-  Serial.println("Left");
+else if(PR_UP<PR_DOWN&&PR_LEFT>PR_UP&&PR_RIGHT>PR_UP){
+   //FORWARD
+   analogWrite(9,150);
+  analogWrite(11, 150); 
   analogWrite(8,00);
-  analogWrite(10, 100); 
-  analogWrite(9,00);
-  analogWrite(11, 00);
+  analogWrite(10,00);
 }
-else {
-  analogWrite(8,00);
-  analogWrite(10, 00); 
-  analogWrite(9,00);
-  analogWrite(11, 00);
 }
-
-}
-
